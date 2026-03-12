@@ -1,3 +1,80 @@
+### 更适合我的
+这里不是说先去啃难题，而是先掌握：
+
+- 数组
+    
+- 链表
+    
+- 栈 / 队列
+    
+- 哈希表
+    
+- 树的基本概念
+    
+- 双指针
+    
+- 二分
+    
+- 递归
+    
+- BFS / DFS 的基本思想
+    
+- 排序的基本认知
+    
+
+对客户端岗位来说，前期够用了。  
+你不需要一上来就 DP、图论、回溯全精通。
+
+- 哈希表：两数之和
+    
+- 栈：有效括号
+    
+- 双指针：移动零、盛最多水的容器
+    
+- 链表：反转链表、环形链表
+    
+- 二叉树：最大深度、中序遍历
+    
+- 二分：二分查找、搜索插入位置
+    
+- 滑动窗口：长度最小的子数组
+    
+- BFS / DFS：岛屿数量
+    
+- 简单 DP：最大子数组和、爬楼梯
+
+## 【0】编程入门
+
+### 数组字符串
+
+[1422. 分割字符串的最大得分](https://leetcode.cn/problems/maximum-score-after-splitting-a-string/)
+
+``` js
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var maxScore = function(s) {
+    let right1 = 0;
+    for (const ch of s) {
+        if (ch === '1') right1++;
+    }
+
+    let ans = 0, left0 = 0;
+    for (let i = 0; i < s.length - 1; i++) {
+        if (s[i] === '0') {
+            left0++;
+        } else {
+            right1--;
+        }
+        ans = Math.max(ans, left0 + right1);
+    }
+    return ans;
+};
+```
+
+
+
 ### 前序
 
 #### 数学：因数与倍数
@@ -100,7 +177,7 @@ var threeSum = function(nums) {
 
 ### 相向双指针2
 
-
+ 
 
 
 
