@@ -2,45 +2,45 @@
 这里不是说先去啃难题，而是先掌握：
 
 - 数组
-    
+  
 - 链表
-    
+  
 - 栈 / 队列
-    
+  
 - 哈希表
-    
+  
 - 树的基本概念
-    
+  
 - 双指针
-    
+  
 - 二分
-    
+  
 - 递归
-    
+  
 - BFS / DFS 的基本思想
-    
+  
 - 排序的基本认知
-    
+  
 
 对客户端岗位来说，前期够用了。  
 你不需要一上来就 DP、图论、回溯全精通。
 
 - 哈希表：两数之和
-    
+  
 - 栈：有效括号
-    
+  
 - 双指针：移动零、盛最多水的容器
-    
+  
 - 链表：反转链表、环形链表
-    
+  
 - 二叉树：最大深度、中序遍历
-    
+  
 - 二分：二分查找、搜索插入位置
-    
+  
 - 滑动窗口：长度最小的子数组
-    
+  
 - BFS / DFS：岛屿数量
-    
+  
 - 简单 DP：最大子数组和、爬楼梯
 
 ## 【0】编程入门
@@ -184,3 +184,153 @@ var threeSum = function(nums) {
 测试更新
 
 再次测试更新222333----测试soucetree
+
+
+
+## 自己第一遍遍历hot100
+
+### 技巧
+
+#### [136. 只出现一次的数字](https://leetcode.cn/problems/single-number/)
+
+`^` 是 **按位异或** 运算符。例如：
+
+0 ^ 0 = 0
+0 ^ 1 = 1
+1 ^ 0 = 1
+1 ^ 1 = 0
+
+
+
+``` javascript
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var singleNumber = function(nums) {
+    let a=0;
+    for(const b of nums){
+        a^=b//a=a^b
+    }
+    return a
+};
+```
+
+#### [169. 多数元素](https://leetcode.cn/problems/majority-element/)
+
+【不是很懂】和上一个题目相反
+
+``` javascript
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var majorityElement = function(nums) {
+    let ans=0,hp=0;
+    for(const x of nums){
+       if(hp===0){
+        ans=x;
+        hp=1;
+       }else{
+        hp+=x===ans?1:-1
+    }
+    }
+    return ans
+};
+```
+
+这里的缩写是：
+
+``` javascript
+if (x === ans) {
+    hp += 1;
+} else {
+    hp -= 1;
+}
+```
+
+也就是：如果当前数字 `x` 和候选人 `ans` 一样，`hp` 加 1
+
+如果不一样，`hp` 减 1
+
+#### [75. 颜色分类](https://leetcode.cn/problems/sort-colors/)
+
+【不是很懂】
+
+``` javascript
+/**
+ * @param {number[]} nums
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+var sortColors = function(nums) {
+    let p0=0,p1=0;
+    for(let i=0;i<nums.length;i++){
+        const x=nums[i]
+        nums[i]=2
+        if(x<=1){
+            nums[p1++]=1
+        }
+        if(x===0){
+            nums[p0++]=0
+        }
+    }
+};
+```
+
+#### [31. 下一个排列](https://leetcode.cn/problems/next-permutation/)
+
+【看不懂】
+[[31]]
+
+
+
+### 双指针
+
+#### [15. 三数之和](https://leetcode.cn/problems/3sum/)
+
+【看不懂，照着答案抄的】首先要知道什么是三元组（三个数相加=0就是三元组）
+
+``` javascript
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var threeSum = function(nums) {
+    nums.sort((a,b)=>(a-b))
+    const n=nums.length;
+    const ans=[];
+    for(let i=0;i<n-2;i++){
+            const x=nums[i];
+            if(i>0&&x===nums[i-1]) continue;
+            if(x+nums[i+1]+nums[i+2]>0)break;
+            if(x+nums[n-2]+nums[n-1]<0)continue;
+            let j=i+1,k=n-1;
+            while(j<k){
+                const s=x+nums[j]+nums[k];
+                if(s>0){
+                    k--;
+                }else if(s<0){
+                    j++
+                }else{
+                    ans.push([x,nums[j],nums[k]])
+                    for(j++;j<k&&nums[j]===nums[j-1];j++);
+                    for(k--;k>j&&nums[k]===nums[k+1];k--);
+                }
+            }
+    }
+    return ans
+};
+```
+
+### 滑动窗口
+
+#### [3. 无重复字符的最长子串](https://leetcode.cn/problems/longest-substring-without-repeating-characters/)
+
+
+
+
+
+
+
+
+
