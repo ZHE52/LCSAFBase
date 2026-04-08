@@ -326,7 +326,183 @@ var threeSum = function(nums) {
 
 #### [3. 无重复字符的最长子串](https://leetcode.cn/problems/longest-substring-without-repeating-characters/)
 
+``` javascript
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var lengthOfLongestSubstring = function(s) {
+    let ans=0;//ans结果
+    let left=0;//左边的窗口
+    const cnt=new Map();//cnt是什么？，开始窗口了，下标left到下标right
+    for (let right = 0; right < s.length; right++) {
+        const c = s[right];
+        cnt.set(c,(cnt.get(c)??0)+1);//这里两个问号是什么，这一句我都不懂
+        while (cnt.get(c)>1) {//为什么要这样，这个cnt.get是啥
+            cnt.set(s[left],cnt.get(s[left])-1);
+            left++;//缩小窗口
+            
+        }
+        ans=Math.max(ans,right-left+1);//更新窗口长度最大值
+    }
+    return ans
+};
+```
 
+
+
+#### [438. 找到字符串中所有字母异位词](https://leetcode.cn/problems/find-all-anagrams-in-a-string/)
+
+[看不懂这个]
+
+``` javascript
+/**
+ * @param {string} s
+ * @param {string} p
+ * @return {number[]}
+ */
+var findAnagrams = function(s, p) {//s，p是啥
+    //统计p的每种字母的出现次数
+    const cntp=new Array(26).fill(0)//为社么是26,为什么fill0
+    for(const c of p){//c是什么
+        cntp[c.charCodeAt()-'a'.charCodeAt()]++//这一行全部看不懂
+    }
+
+    const ans=[]
+    const cntS=new Array(26).fill(0)//统计s的长为len（p）的子串t的每种字母
+    for(let right=0;right<s.length;right++){
+        cntS[s[right].charCodeAt()-'a'.charCodeAt()]++//右端点字母进入窗口
+        const left=right-p.length+1
+        if(left<0){//窗口长度不足
+            continue;
+        }
+        if(_.isEqual(cntS,cntp)){//t和p的每种字母的出现次数都相同
+            ans.push(left)//t左边下标
+
+
+
+        }
+        cntS[s[left].charCodeAt()-'a'.charCodeAt()]--;
+
+    }
+    return ans;
+    
+};
+```
+
+
+
+### 链表
+
+【看不懂】
+
+#### 反转
+
+``` javascript
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var reverseList = function(head) {
+    let pre =null, cur=head;
+
+    while(cur){
+        const nxt=cur.next;
+        cur.next=pre;
+        pre=cur;
+        cur=nxt;
+
+    }
+    return pre;
+};
+```
+
+### 数组
+
+#### 53. 最大子数组和
+
+``` javascript
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxSubArray = function (nums) {
+    let maxSum = -Infinity//最大和...这个infinity是个啥
+    for (let i = 0; i < nums.length; i++) {
+        let currentSum = 0//定义当前最大和
+        for (let j = i; j < nums.length; j++) {
+            currentSum=currentSum+nums[j]//从i累加到j
+            //currentSum+=nums[j]，是不是就等于currentSum=nums[j]+1
+            maxSum=Math.max(maxSum,currentSum)//最后math.max  
+        }//遍历
+    }//遍历
+        return maxSum
+
+
+};
+
+
+```
+
+啥是动态规划
+
+Kadane算法--看不懂，递归也搞不清楚
+
+### 树
+
+#### [543. 二叉树的直径](https://leetcode.cn/problems/diameter-of-binary-tree/)
+
+``` javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var diameterOfBinaryTree = function(root) {
+    let ans=0;
+    function dfs(node){//？node是哪里来的,dfs是什么意思，深度搜索？
+            if(node===null){
+                return -1;//-1是什么意思
+            }
+            const lLen=dfs(node.left)+1;//
+            const rLen=dfs(node.right)+1;
+            ans=Math.max(ans,lLen+rLen);
+            return Math.max(lLen,rLen)
+    }
+    dfs(root)
+    return ans;
+    //   let ans = 0;//最后
+    // function dfs(node) {
+    //     if (node === null) {
+    //         return -1; // 对于叶子来说，链长就是 -1+1=0
+    //     }
+    //     const lLen = dfs(node.left) + 1; // 左子树最大链长+1
+    //     const rLen = dfs(node.right) + 1; // 右子树最大链长+1
+    //     ans = Math.max(ans, lLen + rLen); // 两条链拼成路径
+    //     return Math.max(lLen, rLen); // 当前子树最大链长
+    // }
+    // dfs(root);
+    // return ans;
+
+ [543. 二叉树的直径](https://leetcode.cn/problems/diameter-of-binary-tree/)
+};
+```
+
+#### [102. 二叉树的层序遍历](https://leetcode.cn/problems/binary-tree-level-order-traversal/)
 
 
 
